@@ -448,6 +448,12 @@ export function processMessage(
       dispatcher.onDevToolsConfig(obj.data)
       return
     }
+    case HMR_ACTIONS_SENT_TO_BROWSER.REACT_DEBUG_CHUNK: {
+      window.__NEXT_REACT_DEBUG_CHUNKS_CONTROLLER.enqueue(
+        Buffer.from(obj.base64EncodedChunk, 'base64')
+      )
+      return
+    }
     case HMR_ACTIONS_SENT_TO_BROWSER.MIDDLEWARE_CHANGES:
     case HMR_ACTIONS_SENT_TO_BROWSER.CLIENT_CHANGES:
     case HMR_ACTIONS_SENT_TO_BROWSER.SERVER_ONLY_CHANGES:
