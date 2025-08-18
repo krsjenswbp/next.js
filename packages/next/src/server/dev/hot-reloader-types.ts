@@ -175,7 +175,11 @@ export interface NextJsHotReloaderInterface {
   clearHmrServerError(): void
   start(): Promise<void>
   send(action: HMR_ACTION_TYPES): void
-  sendReactDebugChunk(requestId: string, chunk: Uint8Array): void
+  sendReactDebugChunk(
+    chunk: Uint8Array,
+    htmlRequestId: string,
+    requestId: string
+  ): void
   getCompilationErrors(page: string): Promise<any[]>
   onHMR(
     req: IncomingMessage,
