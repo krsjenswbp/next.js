@@ -131,7 +131,7 @@ export interface DevToolsConfigAction {
 export interface ReactDebugChunkAction {
   action: HMR_ACTIONS_SENT_TO_BROWSER.REACT_DEBUG_CHUNK
   requestId: string
-  base64EncodedChunk: string
+  base64EncodedChunk: string | null
 }
 
 export type HMR_ACTION_TYPES =
@@ -176,7 +176,7 @@ export interface NextJsHotReloaderInterface {
   start(): Promise<void>
   send(action: HMR_ACTION_TYPES): void
   sendReactDebugChunk(
-    chunk: Uint8Array,
+    chunk: Uint8Array | null,
     htmlRequestId: string,
     requestId: string
   ): void
