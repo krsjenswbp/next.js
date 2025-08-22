@@ -469,6 +469,12 @@ export function processMessage(
             controller.close()
             controllers.delete(requestId)
           }
+        } else {
+          console.error(
+            new Error(
+              'No debug channel controller found for request ID: ' + requestId
+            )
+          )
         }
       }
 
