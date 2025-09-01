@@ -51,16 +51,14 @@ describe('PPR - partial hydration', () => {
           // without waiting for the dynamic content
           expect(
             await browser
-              .elementByCssInstant('#shell-hydrated', { state: 'visible' })
+              .elementByCssInstant('#shell-hydrated')
               .getAttribute('data-is-hydrated')
           ).toBe('true')
 
           // The dynamic content hasn't streamed in yet, we should only see the fallback
           expect(await browser.elementsByCss('main #dynamic')).toHaveLength(0)
           expect(
-            await browser
-              .elementByCssInstant('#dynamic-fallback', { state: 'visible' })
-              .text()
+            await browser.elementByCssInstant('#dynamic-fallback').text()
           ).toContain('Loading...')
         },
         1000,
@@ -72,19 +70,17 @@ describe('PPR - partial hydration', () => {
         // The shell is already hydrated, this shouldn't change
         expect(
           await browser
-            .elementByCssInstant('#shell-hydrated', { state: 'visible' })
+            .elementByCssInstant('#shell-hydrated')
             .getAttribute('data-is-hydrated')
         ).toBe('true')
 
         // The dynamic content should be visible and hydrated
+        expect(await browser.elementByCssInstant('#dynamic').text()).toMatch(
+          /Random value: \d+/
+        )
         expect(
           await browser
-            .elementByCssInstant('#dynamic', { state: 'visible' })
-            .text()
-        ).toMatch(/Random value: \d+/)
-        expect(
-          await browser
-            .elementByCssInstant('#dynamic-hydrated', { state: 'visible' })
+            .elementByCssInstant('#dynamic-hydrated')
             .getAttribute('data-is-hydrated')
         ).toBe('true')
       })
@@ -122,18 +118,16 @@ describe('PPR - partial hydration', () => {
       )
       expect(
         await browser
-          .elementByCss('#shell-hydrated', { state: 'visible' })
+          .elementByCss('#shell-hydrated')
           .getAttribute('data-is-hydrated')
       ).toBe('false')
 
       // The dynamic content can't be inserted into the document because we disabled JS,
       // so we should only see the fallback
       expect(await browser.elementsByCss('main #dynamic')).toHaveLength(0)
-      expect(
-        await browser
-          .elementByCss('#dynamic-fallback', { state: 'visible' })
-          .text()
-      ).toContain('Loading...')
+      expect(await browser.elementByCss('#dynamic-fallback').text()).toContain(
+        'Loading...'
+      )
     })
   })
 })

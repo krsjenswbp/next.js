@@ -53,7 +53,7 @@ describe('next/head', () => {
     for (let i = 1; i < 5; i++) {
       expect(
         await browser
-          .elementByCss(`meta[name="test-head-${i}"]`)
+          .elementByCss(`meta[name="test-head-${i}"]`, { state: 'attached' })
           .getAttribute('content')
       ).toBe('hello')
     }

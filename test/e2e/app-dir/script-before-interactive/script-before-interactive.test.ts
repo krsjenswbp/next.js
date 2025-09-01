@@ -9,7 +9,7 @@ describe('Script component with beforeInteractive strategy CSS class rendering',
     const browser = await next.browser('/')
 
     // Wait for the page to fully load
-    await browser.waitForElementByCss('#example-script')
+    await browser.waitForElementByCss('#example-script', { state: 'attached' })
 
     // Get the HTML content to check the actual rendered attributes
     const html = await browser.eval(() => document.documentElement.innerHTML)
@@ -19,7 +19,9 @@ describe('Script component with beforeInteractive strategy CSS class rendering',
     expect(html).not.toContain('classname="example-class"')
 
     // Also verify the script element directly
-    const scriptElement = await browser.elementByCss('#example-script')
+    const scriptElement = await browser.elementByCss('#example-script', {
+      state: 'attached',
+    })
     const className = await scriptElement.getAttribute('class')
 
     expect(className).toBe('example-class')

@@ -13,7 +13,9 @@ describe('app-dir - reexport-client-component-metadata', () => {
     )
 
     const browser = await next.browser('/override')
-    expect(await browser.elementByCss('title').text()).toBe('Page 1')
+    expect(
+      await browser.elementByCss('title', { state: 'attached' }).text()
+    ).toBe('Page 1')
     expect(
       await browser
         .elementByCss('meta[name="description"]')
@@ -29,7 +31,9 @@ describe('app-dir - reexport-client-component-metadata', () => {
     )
 
     const browser = await next.browser('/no-override')
-    expect(await browser.elementByCss('title').text()).toBe('Root Layout')
+    expect(
+      await browser.elementByCss('title', { state: 'attached' }).text()
+    ).toBe('Root Layout')
     expect(
       await browser
         .elementByCss('meta[name="description"]')

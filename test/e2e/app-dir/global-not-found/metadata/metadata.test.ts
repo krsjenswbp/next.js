@@ -17,14 +17,18 @@ describe('global-not-found - metadata', () => {
 
     // assert hydrated metadata
     const browser = await next.browser('/does-not-exist')
-    const title = await browser.elementByCss('title')
-    const description = await browser.elementByCss('meta[name="description"]')
+    const title = await browser.elementByCss('title', { state: 'attached' })
+    const description = await browser.elementByCss('meta[name="description"]', {
+      state: 'attached',
+    })
     expect(await title.text()).toBe('global-not-found')
     expect(await description.getAttribute('content')).toBe(
       'global-not-found description'
     )
     // pick up static icon svg
-    const icon = await browser.elementByCss('link[rel="icon"]')
+    const icon = await browser.elementByCss('link[rel="icon"]', {
+      state: 'attached',
+    })
     expect(await icon.getAttribute('type')).toBe('image/svg+xml')
   })
 })

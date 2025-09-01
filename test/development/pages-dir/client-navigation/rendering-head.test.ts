@@ -207,7 +207,9 @@ describe('Client Navigation rendering <Head />', () => {
     // Check that title appears only once
     const titleElements = await browser.elementsByCss('title')
     expect(titleElements).toHaveLength(1)
-    const titleText = await browser.elementByCss('title').text()
+    const titleText = await browser
+      .elementByCss('title', { state: 'attached' })
+      .text()
     expect(titleText).toBe('Title Page')
 
     // Check that each meta property appears only once
@@ -216,7 +218,7 @@ describe('Client Navigation rendering <Head />', () => {
     )
     expect(ogTitleElements).toHaveLength(1)
     const ogTitleContent = await browser
-      .elementByCss('meta[property="og:title"]')
+      .elementByCss('meta[property="og:title"]', { state: 'attached' })
       .getAttribute('content')
     expect(ogTitleContent).toBe('Title Content')
 
@@ -225,7 +227,7 @@ describe('Client Navigation rendering <Head />', () => {
     )
     expect(descriptionElements).toHaveLength(1)
     const descriptionContent = await browser
-      .elementByCss('meta[name="description"]')
+      .elementByCss('meta[name="description"]', { state: 'attached' })
       .getAttribute('content')
     expect(descriptionContent).toBe('Description Content')
   })

@@ -871,11 +871,15 @@ function runTests(mode) {
     )
     expect(await img.getAttribute('srcset')).toBe(null)
     expect(await img.getAttribute('style')).toBe('color:transparent')
-    const source1 = await browser.elementByCss('source:first-of-type')
+    const source1 = await browser.elementByCss('source:first-of-type', {
+      state: 'attached',
+    })
     expect(await source1.getAttribute('srcset')).toBe(
       '/_next/image?url=%2Ftest.png&w=640&q=75 1x, /_next/image?url=%2Ftest.png&w=828&q=75 2x'
     )
-    const source2 = await browser.elementByCss('source:last-of-type')
+    const source2 = await browser.elementByCss('source:last-of-type', {
+      state: 'attached',
+    })
     expect(await source2.getAttribute('srcset')).toBe(
       '/_next/image?url=%2Ftest_light.png&w=640&q=75 1x, /_next/image?url=%2Ftest_light.png&w=828&q=75 2x'
     )

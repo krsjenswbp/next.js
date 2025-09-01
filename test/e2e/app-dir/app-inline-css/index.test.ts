@@ -9,7 +9,9 @@ describe('app dir - css - experimental inline css', () => {
     it('should render page with correct styles', async () => {
       const browser = await next.browser('/')
 
-      const inlineStyleTag = await browser.elementByCss('style')
+      const inlineStyleTag = await browser.elementByCss('style', {
+        state: 'attached',
+      })
       expect(await inlineStyleTag.text()).toContain('color')
 
       const p = await browser.elementByCss('p')

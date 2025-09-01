@@ -24,7 +24,9 @@ describe('parallel-routes-catchall-css', () => {
     // the page background should be blue
     expect(await getChildrenBackgroundColor(browser)).toBe('rgb(0, 0, 255)')
 
-    expect(await browser.elementByCss('title').text()).toBe('Home Page')
+    expect(
+      await browser.elementByCss('title', { state: 'attached' }).text()
+    ).toBe('Home Page')
     expect(await browser.elementsByCss('title')).toHaveLength(1)
 
     // navigate to the page that matches a parallel route

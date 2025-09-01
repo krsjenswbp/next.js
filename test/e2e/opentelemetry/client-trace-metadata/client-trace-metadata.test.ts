@@ -28,12 +28,12 @@ describe('clientTraceMetadata', () => {
     it('hard loading a dynamic page twice should yield different dynamic trace data', async () => {
       const browser1 = await next.browser('/app-router/dynamic-page')
       const firstLoadSpanIdContent = await browser1
-        .elementByCss('meta[name="my-parent-span-id"]')
+        .elementByCss('meta[name="my-parent-span-id"]', { state: 'attached' })
         .getAttribute('content')
 
       const browser2 = await next.browser('/app-router/dynamic-page')
       const secondLoadSpanIdContent = await browser2
-        .elementByCss('meta[name="my-parent-span-id"]')
+        .elementByCss('meta[name="my-parent-span-id"]', { state: 'attached' })
         .getAttribute('content')
 
       expect(firstLoadSpanIdContent).toMatch(/[a-f0-9]{16}/)
@@ -68,7 +68,9 @@ describe('clientTraceMetadata', () => {
           const browser = await next.browser('/app-router/static-page')
 
           const initialSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           // We are in dev mode so the static page should contain propagation data
@@ -78,7 +80,9 @@ describe('clientTraceMetadata', () => {
           await browser.elementByCss('#dynamic-page-header')
 
           const updatedSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           expect(initialSpanIdTagContent).toBe(updatedSpanIdTagContent)
@@ -88,7 +92,9 @@ describe('clientTraceMetadata', () => {
           const browser = await next.browser('/app-router/static-page')
 
           const initialSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           // We are in dev mode so the static page should contain propagation data
@@ -98,7 +104,9 @@ describe('clientTraceMetadata', () => {
           await browser.elementByCss('#static-page-2-header')
 
           const updatedSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           expect(initialSpanIdTagContent).toBe(updatedSpanIdTagContent)
@@ -188,12 +196,12 @@ describe('clientTraceMetadata', () => {
     it('hard loading a dynamic page twice should yield different dynamic trace data', async () => {
       const browser1 = await next.browser('/pages-router/dynamic-page')
       const firstLoadSpanIdContent = await browser1
-        .elementByCss('meta[name="my-parent-span-id"]')
+        .elementByCss('meta[name="my-parent-span-id"]', { state: 'attached' })
         .getAttribute('content')
 
       const browser2 = await next.browser('/pages-router/dynamic-page')
       const secondLoadSpanIdContent = await browser2
-        .elementByCss('meta[name="my-parent-span-id"]')
+        .elementByCss('meta[name="my-parent-span-id"]', { state: 'attached' })
         .getAttribute('content')
 
       expect(firstLoadSpanIdContent).toMatch(/[a-f0-9]{16}/)
@@ -222,7 +230,9 @@ describe('clientTraceMetadata', () => {
           const browser = await next.browser('/pages-router/static-page')
 
           const initialSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           // We are in dev mode so the static page should contain propagation data
@@ -232,7 +242,9 @@ describe('clientTraceMetadata', () => {
           await browser.elementByCss('#dynamic-page-header')
 
           const updatedSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           expect(initialSpanIdTagContent).toBe(updatedSpanIdTagContent)
@@ -242,7 +254,9 @@ describe('clientTraceMetadata', () => {
           const browser = await next.browser('/pages-router/static-page')
 
           const initialSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           // We are in dev mode so the static page should contain propagation data
@@ -252,7 +266,9 @@ describe('clientTraceMetadata', () => {
           await browser.elementByCss('#static-page-2-header')
 
           const updatedSpanIdTagContent = await browser
-            .elementByCss('meta[name="my-parent-span-id"]')
+            .elementByCss('meta[name="my-parent-span-id"]', {
+              state: 'attached',
+            })
             .getAttribute('content')
 
           expect(initialSpanIdTagContent).toBe(updatedSpanIdTagContent)
