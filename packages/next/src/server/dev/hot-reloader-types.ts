@@ -175,8 +175,11 @@ export interface NextJsHotReloaderInterface {
   clearHmrServerError(): void
   start(): Promise<void>
   send(action: HMR_ACTION_TYPES): void
-  sendReactDebugChunk(
-    chunk: Uint8Array | null,
+  setReactDebugChannel(
+    debugChannel: {
+      readable: ReadableStream<Uint8Array>
+      // Might get a writable stream as return channel in the future.
+    },
     htmlRequestId: string,
     requestId: string
   ): void
